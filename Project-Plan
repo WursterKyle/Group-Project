@@ -1,0 +1,22 @@
+# 1. Performance Trends and Player Development
+# Research Question: How do players' performances change as they age, and what age range typically represents peak performance in various statistical categories (e.g., batting average, home runs, ERA)?
+  # Data Tables to Use: People, Batting, Pitching
+  # Analysis Approach: You can use player birth dates to calculate age for each season played. Then, aggregate performance stats by age and analyze trends to identify peak performance periods.
+
+# For Batters: Use statistics such as Batting Average (BA), On-Base Plus Slugging (OPS), Home Runs (HR)
+# For Pitchers: Use statistics such as Earned Run Average (ERA), Walks Plus Hits Per Innning (WHIP), Opponent Batting Percentage (BAOpp)
+# May want to seperate Batters and Pitchers for Analysis
+# Use "Batting" and "Pitching" spreadhseets for statistics
+  # Equations for Batting Statistics:
+    # BA = (H) / (AB)
+    # OPS = (OBP) + (SLG)
+      # OBP = (H + BB + HBP) / (AB + BB + HBP + SF)
+      # SLG = (1B + 2B*2 + 3B*3 + HR*4) / (AB)
+  # Equations for Pitching Statistics:
+    # WHIP = (H + BB) / (IP)
+      # IP = (IPouts) / (3)
+
+# 
+
+
+
