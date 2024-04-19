@@ -62,7 +62,7 @@ selected_pitching['birthYear'] = pd.to_datetime(selected_pitching['birthYear'], 
 selected_pitching['age'] = selected_pitching['yearID'].dt.year - selected_pitching['birthYear'].dt.year
 
 
-# Calculate WIP (Walks plus Hits per Inning Pitched)
+# Calculate WHIP (Walks plus Hits per Inning Pitched)
 selected_pitching['IP'] = selected_pitching['IPouts'] / 3
 selected_pitching['WHIP'] = (selected_pitching['BB'] + selected_pitching['H']) / selected_pitching['IP']
 
@@ -71,5 +71,13 @@ selected_pitching['WHIP'] = (selected_pitching['BB'] + selected_pitching['H']) /
 selected_pitching = selected_pitching.dropna(subset=['ERA'])
 
 
-# Print playerID, yearID, age, ERA, and WIP
+# Print playerID, yearID, age, ERA, and WHIP
 print(selected_pitching[['playerID', 'yearID', 'age', 'ERA', 'WHIP']])
+
+
+
+
+# May want to use this:
+
+# Filter out pitchers who pitched more than 50 innings in a season
+selected_pitching = selected_pitching[selected_pitching['IP'] > 50]
