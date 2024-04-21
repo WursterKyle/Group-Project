@@ -1,1 +1,75 @@
+import pandas as pd
+from datetime import datetime
+import matplotlib.pyplot as plt
 
+# File paths (replace with actual file paths)
+people_file_path = r'C:\Users\evand\Downloads\people.spread.xlsx'
+batting_file_path = r'C:\Users\evand\Downloads\batting.spread.xlsx'
+pitching_file_path = r'C:\Users\evand\Downloads\pitching.xslx.xlsx'
+
+# Read People.xlsx
+people_df = pd.read_excel(people_file_path)
+
+# Convert 'debut' column to datetime
+people_df['Debut'] = pd.to_datetime(people_df['debut'], format='%Y-%m-%d')
+
+# Filter players with MLB debut dates from 1974 to current year
+selected_players = people_df[(people_df['Debut'].dt.year >= 1974) & (people_df['Debut'].dt.year <= datetime.now().year)]
+
+# Read Batting.xlsx
+batting_df = pd.read_excel(batting_file_path)
+
+# Calculate At Bats (AB) for each player
+batting_df['AB'] = batting_df['AB'].fillna(0)  # Fill missing values with 0
+batting_df['AB'] = batting_df['AB'].astype(int)
+
+# Filter players with at least 200 at-bats
+selected_batters = batting_df.groupby('playerID').filter(lambda x: x['AB'].sum() >= 200)
+
+# Read Pitching.xlsx
+pitching_df = pd.read_excel(pitching_file_path)
+
+# Calculate Innings Pitched (IP) for each pitcher
+pitching_df['IP'] = pitching_df['IPouts'] / 3  # Convert IPouts to innings pitched
+pitching_df['IP'] = pitching_df['IP'].fillna(0)  # Fill missing values with 0
+
+# Filter players with at least 50 innings pitched
+selected_pitchers = pitching_df.groupby('playerID').filter(lambda x: x['IP'].sum() >= 50)
+
+# Merge selected players with batting data (batters and pitchers)
+merged_batters = pd.merge(selected_players, selected_batters, on='playerID', how='inner')
+merged_pitchers = pd.merge(selected_players, selected_pitchers, on='playerID', how='inner')
+
+# Calculate age at every year of their career
+merged_batters['Age'] = merged_batters['yearID'] - merged_batters['birthYear']
+merged_batters['Age'] = merged_batters['Age'].astype(int)  # Convert age to integer
+merged_pitchers['Age'] = merged_pitchers['yearID'] - merged_pitchers['birthYear']
+merged_pitchers['Age'] = merged_pitchers['Age'].astype(int)  # Convert age to integer
+
+# Count number of players in each age group for batters
+batter_age_counts = merged_batters['Age'].value_counts().sort_index()
+
+# Count number of players in each age group for pitchers
+pitcher_age_counts = merged_pitchers['Age'].value_counts().sort_index()
+
+# Plot histograms for batters and pitchers
+plt.figure(figsize=(12, 6))
+
+# Batters histogram
+plt.subplot(1, 2, 1)
+plt.bar(batter_age_counts.index, batter_age_counts.values, color='skyblue')
+plt.title('Distribution of Batters by Age')
+plt.xlabel('Age')
+plt.ylabel('Number of Players')
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+
+# Pitchers histogram
+plt.subplot(1, 2, 2)
+plt.bar(pitcher_age_counts.index, pitcher_age_counts.values, color='lightgreen')
+plt.title('Distribution of Pitchers by Age')
+plt.xlabel('Age')
+plt.ylabel('Number of Players')
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+
+plt.tight_layout()
+plt.show()
