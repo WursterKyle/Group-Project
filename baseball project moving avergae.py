@@ -62,46 +62,53 @@ plt.figure(figsize=(12, 8))
 
 # Function to plot with line of best fit
 def plot_with_line_of_best_fit(ax, x, y, label):
-    ax.plot(x, y, marker='o', linestyle='', label=label)
+    ax.plot(x, y, marker='o', linestyle='-', label=label)
     slope, intercept, _, _, _ = linregress(x, y)
     ax.plot(x, slope * x + intercept, linestyle='-', color='red')
+    ax.set_xticks(np.arange(20, 41, 2))
+    ax.grid(True)
 
 # OPS
 ax1 = plt.subplot(2, 2, 1)
 plot_with_line_of_best_fit(ax1, average_stats_by_age['Age'], average_stats_by_age['OPS'], 'OPS')
+ax1.set_ylim([0.720, 0.780])
+ax1.set_yticks(np.round(np.arange(0.720, 0.781, 0.010), 3))
 plt.xlabel('Age')
 plt.ylabel('OPS')
 plt.title('OPS Across Age Groups (20-40) Since 1974')
-plt.grid(True)
 plt.legend()
 
 # BA
 ax2 = plt.subplot(2, 2, 2)
 plot_with_line_of_best_fit(ax2, average_stats_by_age['Age'], average_stats_by_age['BA'], 'BA')
+ax2.set_ylim([0.260, 0.280])
+ax2.set_yticks(np.round(np.arange(0.260, 0.281, 0.010), 3))
 plt.xlabel('Age')
 plt.ylabel('BA')
 plt.title('Batting Average Across Age Groups (20-40) Since 1974')
-plt.grid(True)
 plt.legend()
 
 # HR
 ax3 = plt.subplot(2, 2, 3)
 plot_with_line_of_best_fit(ax3, average_stats_by_age['Age'], average_stats_by_age['HR'], 'HR')
+ax3.set_ylim([8, 14])
+ax3.set_yticks(np.arange(8, 15, 1))
 plt.xlabel('Age')
 plt.ylabel('HR')
 plt.title('Home Runs Across Age Groups (20-40) Since 1974')
-plt.grid(True)
 plt.legend()
 
 # SB
 ax4 = plt.subplot(2, 2, 4)
 plot_with_line_of_best_fit(ax4, average_stats_by_age['Age'], average_stats_by_age['SB'], 'SB')
+ax4.set_ylim([5, 12])
+ax4.set_yticks(np.arange(5, 13, 1))
 plt.xlabel('Age')
 plt.ylabel('SB')
 plt.title('Stolen Bases Across Age Groups (20-40) Since 1974')
-plt.grid(True)
 plt.legend()
 
 plt.tight_layout()
 plt.show()
+
 
