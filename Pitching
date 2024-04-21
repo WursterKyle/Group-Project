@@ -67,8 +67,8 @@ selected_pitching['IP'] = selected_pitching['IPouts'] / 3
 selected_pitching['WHIP'] = (selected_pitching['BB'] + selected_pitching['H']) / selected_pitching['IP']
 
 
-# Filter out players with no pitching statistics
-selected_pitching = selected_pitching.dropna(subset=['ERA'])
+# Filter out pitchers who pitched more than 50 innings in a season
+selected_pitching = selected_pitching[selected_pitching['IP'] > 50]
 
 
 # Print playerID, yearID, age, ERA, and WHIP
