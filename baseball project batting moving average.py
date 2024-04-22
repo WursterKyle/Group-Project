@@ -77,6 +77,7 @@ plt.xlabel('Age')
 plt.ylabel('OPS')
 plt.title('OPS Across Age Groups (20-40) Since 1974')
 plt.legend()
+plt.gca().yaxis.set_major_formatter('{:.3f}'.format)  # Format y-axis to three decimal places
 
 # BA
 ax2 = plt.subplot(2, 2, 2)
@@ -87,6 +88,7 @@ plt.xlabel('Age')
 plt.ylabel('BA')
 plt.title('Batting Average Across Age Groups (20-40) Since 1974')
 plt.legend()
+plt.gca().yaxis.set_major_formatter('{:.3f}'.format)  # Format y-axis to three decimal places
 
 # HR
 ax3 = plt.subplot(2, 2, 3)
