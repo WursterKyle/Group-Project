@@ -79,6 +79,7 @@ ax1.set_yticks(np.round(np.arange(.720, .781, .010), 3))
 plt.xlabel('Age')
 plt.ylabel('OPS')
 plt.title('OPS Across Age Groups (22-36) Since 1974')
+plt.gca().yaxis.set_major_formatter('{:.3f}'.format)  # Format y-axis to three decimal places
 
 # BA
 ax2 = plt.subplot(2, 2, 2)
@@ -88,6 +89,7 @@ ax2.set_yticks(np.round(np.arange(.250, .301, .010), 3))
 plt.xlabel('Age')
 plt.ylabel('BA')
 plt.title('Batting Average Across Age Groups (22-36) Since 1974')
+plt.gca().yaxis.set_major_formatter('{:.3f}'.format)  # Format y-axis to three decimal places
 
 # HR
 ax3 = plt.subplot(2, 2, 3)
