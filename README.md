@@ -1,1 +1,1 @@
-# DEV Branch for Baseball Analytics Group Project
+# MAIN Branch for Baseball Analytics Group Project
